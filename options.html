@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Настройки · Таймер звука вкладки</title>
+  <style>
+    :root {
+      --accent: #1a73e8;
+      --accent-dark: #1765cc;
+      --danger: #c5221f;
+      --text: #202124;
+      --muted: #5f6368;
+      --border: #dadce0;
+      --bg: #f1f3f4;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+    .wrap { max-width: 640px; margin: 0 auto; padding: 32px 20px 48px; }
+    h1 { font-size: 22px; margin: 0 0 6px; }
+    .subtitle { margin: 0 0 24px; color: var(--muted); font-size: 14px; }
+    .card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 16px;
+    }
+    .card h2 { font-size: 16px; margin: 0 0 14px; }
+    #add-form { display: flex; gap: 8px; }
+    #value {
+      flex: 1;
+      min-width: 0;
+      padding: 9px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 14px;
+    }
+    #value:focus { outline: 2px solid var(--accent); outline-offset: -1px; border-color: transparent; }
+    #unit {
+      padding: 9px 10px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: #fff;
+      font-size: 14px;
+    }
+    #add-form button {
+      padding: 9px 16px;
+      border: 0;
+      border-radius: 8px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    #add-form button:hover { background: var(--accent-dark); }
+    .status { font-size: 13px; margin: 10px 0 0; }
+    .status.ok { color: #188038; }
+    .status.err { color: var(--danger); }
+    .list { list-style: none; margin: 14px 0 0; padding: 0; }
+    .list li {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 9px 4px;
+      border-top: 1px solid #f1f3f4;
+      font-size: 14px;
+    }
+    .list li:first-child { border-top: 0; }
+    .delete {
+      border: 0;
+      background: none;
+      color: var(--danger);
+      font-size: 13px;
+      cursor: pointer;
+      padding: 4px 10px;
+      border-radius: 6px;
+    }
+    .delete:hover { background: #fce8e6; }
+    .empty { color: var(--muted); font-size: 13px; margin: 12px 0 0; }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .chip {
+      background: #e8f0fe;
+      color: #174ea6;
+      border-radius: 16px;
+      padding: 6px 14px;
+      font-size: 13px;
+    }
+    .hint { color: var(--muted); font-size: 12.5px; line-height: 1.5; margin: 12px 0 0; }
+    footer.hint { margin-top: 4px; }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header>
+      <h1>Таймер звука вкладки</h1>
+      <p class="subtitle">Настройка своих интервалов для пункта «Отключить звук на…» в контекстном меню</p>
+    </header>
+
+    <section class="card">
+      <h2>Свои интервалы</h2>
+      <form id="add-form" autocomplete="off">
+        <input id="value" type="number" min="1" step="any" placeholder="Например, 45"
+               aria-label="Значение интервала" required>
+        <select id="unit" aria-label="Единица измерения">
+          <option value="sec" selected>сек</option>
+          <option value="min">мин</option>
+        </select>
+        <button type="submit">Добавить</button>
+      </form>
+      <p id="status" class="status" role="status" hidden></p>
+      <ul id="custom-list" class="list"></ul>
+      <p id="empty-note" class="empty">Своих интервалов пока нет. Добавьте любой — например, 45 сек или 10 мин.</p>
+    </section>
+
+    <section class="card">
+      <h2>Встроенные интервалы</h2>
+      <div class="chips">
+        <span class="chip">10 сек</span>
+        <span class="chip">15 сек</span>
+        <span class="chip">30 сек</span>
+        <span class="chip">1 мин</span>
+        <span class="chip">2 мин</span>
+        <span class="chip">3 мин</span>
+        <span class="chip">5 мин</span>
+      </div>
+      <p class="hint">Встроенные интервалы удалить нельзя. При желании их можно изменить в списке
+        BUILTIN_DURATIONS в начале файла background.js.</p>
+    </section>
+
+    <footer class="hint">
+      Изменения сохраняются автоматически и сразу появляются в меню «Отключить звук на…»
+      при правом клике на любой странице.
+    </footer>
+  </main>
+  <script src="options.js" defer></script>
+</body>
+</html>
